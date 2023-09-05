@@ -1,6 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../contoller/calculator_controller.dart';
+import 'intrest_calculator_view.dart';
+
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Calculator App',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => CalculatorView(),
+        '/interestCalculator': (context) => InterestCalculatorView(),
+      },
+    );
+  }
+}
 
 class CalculatorView extends StatelessWidget {
   final CalculatorController controller = Get.put(CalculatorController());
@@ -51,22 +70,26 @@ class CalculatorView extends StatelessWidget {
             children: [
               buildButton('0'),
               buildButton('C', isClear: true),
-              buildButton('=', isEquals: true),
               buildOperatorButton('/'),
             ],
           ),
+          ElevatedButton(
+            onPressed: () {
+              Get.to(()=>InterestCalculatorView());
+            },
+            child: Text('Calculate Interest'),
+          ),
         ],
+
       ),
     );
   }
 
-  Widget buildButton(String text, {bool isClear = false, bool isEquals = false}) {
+  Widget buildButton(String text, {bool isClear = false}) {
     return ElevatedButton(
       onPressed: () {
         if (isClear) {
           controller.onClearPress();
-        } else if (isEquals) {
-          controller.onCalculatePress();
         } else {
           controller.onDigitPress(text);
         }
