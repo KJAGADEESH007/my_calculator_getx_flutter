@@ -71,6 +71,7 @@ class CalculatorView extends StatelessWidget {
               buildButton('0'),
               buildButton('C', isClear: true),
               buildOperatorButton('/'),
+              buildButton('='),
             ],
           ),
           ElevatedButton(
